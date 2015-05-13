@@ -4,13 +4,20 @@ import TramSchedule from '../models/tram-schedule';
 
 export default Ember.Route.extend({
 
+  default_endpoint: 'http://localhost:4567',
   refresh_interval: 5000,
 
   setupController: function () {
-    var dashboard, self = this;
+    var endpoint, dashboard, self = this;
+
+    if (window['CLIENT_CONFIG'] && window['CLIENT_CONFIG']['SERVER']) {
+      endpoint = window['CLIENT_CONFIG']['SERVER'];
+    } else {
+      endpoint = this.get('default_endpoint');
+    }
 
     function updateDashboard () {
-      Ember.$.getJSON('http://10.0.2.195:4567/dashboard').then(function (response) {
+      Ember.$.getJSON(endpoint + '/dashboard').then(function (response) {
         if (!(dashboard = response.dashboard)) {
           return;
         }
