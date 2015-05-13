@@ -1,0 +1,43 @@
+.tram-view {
+	width: 960px;
+	height: 540px;
+	top: 0;
+	left: 480px;
+
+	.schedule {
+		position: absolute;
+		top: 40px;
+		left: 40px;
+		right: 40px;
+
+		> table {
+			width: 100%;
+			margin: auto;
+			color: #e7993d;
+			font-size: 48px;
+			text-shadow: 0 0 5px #e7993d;
+			table-layout: fixed;
+
+			td {
+				padding: 4px;
+				vertical-align: top;
+
+				&.train {
+					text-align: right;
+					width: 160px;
+					padding-right: 40px;
+				}
+
+				&.delay {
+					text-align: right;
+					width: 120px;
+				}
+
+				&.departure {
+					text-align: right;
+					width: 160px;
+				}
+			}
+		}
+	}
+}

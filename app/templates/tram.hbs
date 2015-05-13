@@ -1,0 +1,30 @@
+<div class="schedule">
+{{#if model.schedule.length}}
+	<table>
+	{{#each item in model.schedule}}
+		<tr>
+			<td class="train">
+				{{item.train}}
+			</td>
+			<td class="destination">
+				{{item.destination}}
+			</td>
+			<td class="delay">
+				{{#if item.delayed}}
+					+{{item.delay}}
+				{{/if}}
+			</td>
+			{{#if item.longTimeAway}}
+				<td class="departure absolute">
+					{{moment item.departure 'HH:mm'}}
+				</td>
+			{{else}}
+				<td class="departure relative">
+					{{item.minutesLeft}}
+				</td>
+			{{/if}}
+		</tr>
+	{{/each}}
+	</table>
+{{/if}}
+</div>

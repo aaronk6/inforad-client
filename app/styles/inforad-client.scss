@@ -1,0 +1,36 @@
+@import "compass/reset";
+
+@import "views/bitcoin";
+@import "views/tram";
+@import "views/clock";
+
+* {
+	box-sizing: border-box;
+}
+
+html, body {
+	overflow: hidden;
+}
+
+#dashboard {
+	width: 1920px;
+	height: 1200px;
+	background: #000;
+	position: relative;
+
+	* {
+		font-family: sans-serif;
+		font-weight: 100;
+	}
+}
+
+.dashboard-item {
+	display: inline-block;
+    position: absolute;
+    visibility: visible; //FIXME
+    color: #fff;
+
+    &.initialized {
+        visibility: visible;
+    }
+}
