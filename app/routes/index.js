@@ -1,6 +1,7 @@
 import Ember from 'ember';
 import BitcoinPriceModel from '../models/bitcoin-price';
 import TramSchedule from '../models/tram-schedule';
+import WeatherModel from '../models/weather';
 
 export default Ember.Route.extend({
 
@@ -29,6 +30,10 @@ export default Ember.Route.extend({
         self.controllerFor('bitcoin').set('model', BitcoinPriceModel.create({
           sourceData: dashboard.items.bitcoin_price
         }));
+
+        self.controllerFor('weather').set('model', WeatherModel.create({
+          sourceData: dashboard.items.weather
+        }));
       });
     }
 
@@ -54,6 +59,12 @@ export default Ember.Route.extend({
       into: 'application',
       outlet: 'clock',
       controller: 'clock'
+    });
+
+    this.render('weather', {
+      into: 'application',
+      outlet: 'weather',
+      controller: 'weather'
     });
   }
 });

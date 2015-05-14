@@ -8,13 +8,13 @@
 		position: absolute;
 		top: 40px;
 		left: 40px;
-		right: 40px;
+		right: 60px;
 
 		> table {
 			width: 100%;
 			margin: auto;
 			color: #e7993d;
-			font-size: 48px;
+			font-size: 45px;
 			table-layout: fixed;
 
 			td {
@@ -23,7 +23,7 @@
 
 				&.train {
 					text-align: right;
-					width: 160px;
+					width: 150px;
 					padding-right: 40px;
 				}
 

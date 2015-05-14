@@ -1,0 +1,61 @@
+$svg-icon-endpoint: 'http://icons.wxug.com/i/c/v1/';
+
+$weather-icons: "chanceflurries", "chancerain", "chancesleet", "chancesnow", "chancetstorms",
+	"clear", "cloudy", "flurries", "fog", "hazy", "mostlycloudy", "mostlysunny", "partlycloudy",
+	"partlysunny", "sleet", "rain", "sleet", "snow", "sunny", "tstorms", "cloudy", "partlycloudy",
+	"nt_chanceflurries", "nt_chancerain", "nt_chancesleet", "nt_chancesnow", "nt_chancetstorms",
+	"nt_clear", "nt_cloudy", "nt_flurries", "nt_fog", "nt_hazy", "nt_mostlycloudy", "nt_mostlysunny", "nt_partlycloudy",
+	"nt_partlysunny", "nt_sleet", "nt_rain", "nt_sleet", "nt_snow", "nt_sunny", "nt_tstorms", "nt_cloudy", "nt_partlycloudy";
+
+@mixin generate-weather-icons($endpoint) {
+	@each $icon in $weather-icons {
+		&.icon-#{$icon} {
+			background-image: url(#{$endpoint}#{$icon}.svg)
+		}
+	}
+}
+
+.weather-view {
+	width: 480px;
+	height: 540px;
+	top: 540px;
+	right: 0;
+
+	text-align: center;
+
+	> .weather-icon {
+		display: inline-block;
+		background-size: 100%;
+		position: absolute;
+		top: 20px;
+		left: 50%;
+		margin-left: -100px;
+		width: 200px;
+		height: 200px;
+		@include generate-weather-icons($svg-icon-endpoint);
+	}
+
+	> .weather-desc {
+		font-size: 32px;
+		position: absolute;
+		top: 240px;
+		left: 40px;
+		right: 40px;
+
+	}
+
+	> .temperature {
+		font-size: 96px;
+		position: absolute;
+		top: 320px;
+		left: 40px;
+		right: 40px;
+	}
+
+	> .observation-time-location {
+		position: absolute;
+		left: 40px;
+		right: 40px; 
+		bottom: 40px;
+	}
+}

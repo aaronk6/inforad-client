@@ -3,6 +3,7 @@
 @import "views/bitcoin";
 @import "views/tram";
 @import "views/clock";
+@import "views/weather";
 
 * {
 	box-sizing: border-box;
@@ -27,10 +28,18 @@ html, body {
 .dashboard-item {
 	display: inline-block;
     position: absolute;
-    visibility: visible; //FIXME
+    overflow: hidden;
     color: #fff;
 
-    &.initialized {
-        visibility: visible;
+    &:after {
+    	position: absolute;
+    	content: '';
+    	display: block;
+    	height: 1px;
+    	background-color: #777;
+    	bottom: 1px;
+    	left: 20px;
+    	right: 20px;
+    	z-index: 1;
     }
 }

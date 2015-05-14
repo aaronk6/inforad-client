@@ -4,6 +4,7 @@ export default Ember.Object.extend({
 
   currentDate: new Date(),
   sourceData: null,
+  maxItems: 9,
 
   schedule: function () {
     var sourceData, schedule, item, now, departure, timeLeft, minutesLeft;
@@ -15,7 +16,7 @@ export default Ember.Object.extend({
     schedule = [];
     now = new Date();
 
-    for (var i = 0; i < sourceData.length; i++) {
+    for (var i = 0; i < Math.min(sourceData.length, this.get('maxItems')); i++) {
 
       item = sourceData[i];
       departure = new Date(item.departure);
