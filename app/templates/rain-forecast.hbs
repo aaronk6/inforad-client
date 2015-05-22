@@ -1,0 +1,9 @@
+{{#with model.sourceData as data}}
+
+	<div class="animation-container">
+		{{#if data.animation_url}}
+			<img class="animation" src="{{data.animation_url}}">
+		{{/if}}
+	</div>
+
+{{/with}}

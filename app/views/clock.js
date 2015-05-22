@@ -2,7 +2,6 @@ import Ember from 'ember';
 
 export default Ember.View.extend({
 
-	templateName: 'clock',
 	classNames: 'clock-view dashboard-item',
 
 	elements: {},

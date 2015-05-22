@@ -1,0 +1,17 @@
+.rain-forecast-view {
+	width: 480px;
+	height: 540px;
+	top: 540px;
+
+	> .animation-container {
+
+		position: absolute;
+		left: 20px;
+		right: 20px;
+		top: 40px;
+
+		> .animation {
+			width: 100%
+		}
+	}
+}
