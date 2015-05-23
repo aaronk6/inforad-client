@@ -3,6 +3,7 @@ import BitcoinPriceModel from '../models/bitcoin-price';
 import TramSchedule from '../models/tram-schedule';
 import WeatherModel from '../models/weather';
 import RainForecastModel from '../models/rain-forecast';
+import CurrentlyPlayingModel from '../models/currently-playing';
 
 export default Ember.Route.extend({
 
@@ -38,6 +39,10 @@ export default Ember.Route.extend({
 
         self.controllerFor('rain-forecast').set('model', RainForecastModel.create({
           sourceData: dashboard.items.rain_forecast
+        }));
+
+        self.controllerFor('currently-playing').set('model', CurrentlyPlayingModel.create({
+          sourceData: dashboard.items.currently_playing
         }));
       });
     }
@@ -76,6 +81,12 @@ export default Ember.Route.extend({
       into: 'application',
       outlet: 'rain-forecast',
       controller: 'rain-forecast'
+    });
+
+    this.render('currently-playing', {
+      into: 'application',
+      outlet: 'currently-playing',
+      controller: 'currently-playing'
     });
   }
 });

@@ -1,0 +1,15 @@
+.currently-playing-view {
+	height: 120px;
+	bottom: 0;
+	left: 20px;
+	right: 20px;
+
+	> .display-container {
+		line-height: 120px;
+		width: 100%;
+		font-size: 48px;
+		white-space: nowrap;
+		text-overflow: ellipsis;
+		overflow: hidden;
+	}
+}
