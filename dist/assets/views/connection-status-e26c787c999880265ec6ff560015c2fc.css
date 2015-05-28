@@ -1,0 +1,1 @@
+.connection-status-view{position:absolute;top:20px;right:20px;width:16px;height:16px;border-radius:8px;background-color:#ccc}.connection-status-view.status-disconnected{background-color:#E92772}.connection-status-view.status-connecting{background-color:#E6DB72}.connection-status-view.status-connected{background-color:#A6E22D}

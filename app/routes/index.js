@@ -1,92 +1,135 @@
+/* global ENV, ReconnectingWebSocket */
+
 import Ember from 'ember';
 import BitcoinPriceModel from '../models/bitcoin-price';
-import TramSchedule from '../models/tram-schedule';
+import TramScheduleModel from '../models/tram-schedule';
 import WeatherModel from '../models/weather';
 import RainForecastModel from '../models/rain-forecast';
 import CurrentlyPlayingModel from '../models/currently-playing';
 
+import ENV from '../config/environment';
+
+var
+  STATUS_CONNECTING = 'status-connecting',
+  STATUS_CONNECTED = 'status-connected',
+  STATUS_DISCONNECTED = 'status-disconnected';
+
 export default Ember.Route.extend({
 
-  default_endpoint: 'http://localhost:4567',
-  refresh_interval: 5000,
+  defaultHost: 'localhost',
+  defaultPort: 80,
+
+  enabledWidgets: {
+    'clock': null,
+    'tram-schedule': TramScheduleModel,
+    'bitcoin-price': BitcoinPriceModel,
+    'weather': WeatherModel,
+    'rain-forecast': RainForecastModel,
+    'currently-playing': CurrentlyPlayingModel
+  },
+
+  setConnectionStatus: function (status) {
+    this.controllerFor('connection-status').set('model', Ember.Object.create({
+      status: status
+    }));
+  },
 
   setupController: function () {
-    var endpoint, dashboard, self = this;
+    var host, port, self = this;
 
-    if (window['CLIENT_CONFIG'] && window['CLIENT_CONFIG']['SERVER']) {
-      endpoint = window['CLIENT_CONFIG']['SERVER'];
-    } else {
-      endpoint = this.get('default_endpoint');
+    self.setConnectionStatus(STATUS_DISCONNECTED);
+
+    function establishSocketConnection(host, port) {
+
+      function connect () {
+        var ws, url;
+
+        url = 'ws://%@:%@'.fmt(host || 'localhost', port || 80);
+        Ember.debug('Trying to connect to %@'.fmt(url));
+        ws = new ReconnectingWebSocket(url);
+
+        ws.onconnecting = function () {
+          self.setConnectionStatus(STATUS_CONNECTING);
+        };
+
+        ws.onopen = function () {
+          Ember.Logger.info('Connected to %@'.fmt(url));
+          self.setConnectionStatus(STATUS_CONNECTED);
+        };
+
+        ws.onclose = function () {
+          self.setConnectionStatus(STATUS_DISCONNECTED);
+        };
+
+        ws.onmessage = function (evt) {
+          var data;
+
+          try {
+            data = JSON.parse(evt.data);
+          } catch (e) {
+            Ember.Logger.error('Failed to parse message: ', evt.data);
+          }
+
+          if (data) {
+            update(data);
+          }
+        };
+
+      }
+
+      connect();
     }
 
-    function updateDashboard () {
-      Ember.$.getJSON(endpoint + '/dashboard').then(function (response) {
-        if (!(dashboard = response.dashboard)) {
-          return;
+    function update (payload) {
+      var widgetName, modelClass;
+
+      if (payload && payload.widget && 'string' === typeof payload.widget.name) {
+        widgetName = payload.widget.name.dasherize();
+        if (modelClass = self.enabledWidgets[widgetName]) {
+          Ember.debug('Updating %@'.fmt(widgetName));
+          self.controllerFor(widgetName).set('model', modelClass.create({
+            sourceData: payload.widget.data
+          }));
         }
-
-        self.controllerFor('tram').set('model', TramSchedule.create({
-          sourceData: dashboard.items.tram_schedule
-        }));
-
-        self.controllerFor('bitcoin').set('model', BitcoinPriceModel.create({
-          sourceData: dashboard.items.bitcoin_price
-        }));
-
-        self.controllerFor('weather').set('model', WeatherModel.create({
-          sourceData: dashboard.items.weather
-        }));
-
-        self.controllerFor('rain-forecast').set('model', RainForecastModel.create({
-          sourceData: dashboard.items.rain_forecast
-        }));
-
-        self.controllerFor('currently-playing').set('model', CurrentlyPlayingModel.create({
-          sourceData: dashboard.items.currently_playing
-        }));
-      });
+      }
     }
 
-    updateDashboard();
-    window.setInterval(updateDashboard, 30000);
+    if (ENV && ENV.BACKEND) {
+      host = ENV.BACKEND.HOST;
+      port = ENV.BACKEND.PORT;
+    } else if (window.ENV && window.ENV.BACKEND) {
+      host = window.ENV.BACKEND.HOST;
+      port = window.ENV.BACKEND.PORT;
+    }
+
+    establishSocketConnection(
+      host || this.get('defaultHost'),
+      port || this.get('defaultPort')
+    );
   },
 
   renderTemplate: function () {
+    var self, widgets, name;
 
-    this.render('bitcoin', {
-      into: 'application',
-      outlet: 'bitcoin',
-      controller: 'bitcoin'
-    });
+    self = this;
 
-    this.render('tram', {
-      into: 'application',
-      outlet: 'tram',
-      controller: 'tram'
-    });
+    self.render('connection-status', {
+        into: 'application',
+        outlet: 'connection-status',
+        controller: 'connection-status'
+      });
 
-    this.render('clock', {
-      into: 'application',
-      outlet: 'clock',
-      controller: 'clock'
-    });
+    widgets = self.enabledWidgets;
 
-    this.render('weather', {
-      into: 'application',
-      outlet: 'weather',
-      controller: 'weather'
-    });
+    for (name in widgets) {
+      if (widgets.hasOwnProperty(name)) {
+        self.render(name, {
+          into: 'application',
+          outlet: name,
+          controller: name
+        });
+      }
+    }
 
-    this.render('rain-forecast', {
-      into: 'application',
-      outlet: 'rain-forecast',
-      controller: 'rain-forecast'
-    });
-
-    this.render('currently-playing', {
-      into: 'application',
-      outlet: 'currently-playing',
-      controller: 'currently-playing'
-    });
   }
 });

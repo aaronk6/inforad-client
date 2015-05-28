@@ -14,6 +14,14 @@
     {{content-for 'head-footer'}}
   </head>
   <body>
+    <script>
+    window["ENV"] = {};
+    window["ENV"].BACKEND = {
+      HOST: 'localhost',
+      PORT: 49181
+    }
+    </script>
+
     {{content-for 'body'}}
 
     <script src="assets/vendor.js"></script>

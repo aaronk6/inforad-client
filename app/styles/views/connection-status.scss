@@ -1,0 +1,21 @@
+.connection-status-view {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    width: 16px;
+    height: 16px;
+    border-radius: 8px;
+    background-color: #ccc;
+
+    &.status-disconnected {
+        background-color: #E92772;
+    }
+
+    &.status-connecting {
+        background-color: #E6DB72;
+    }
+
+    &.status-connected {
+        background-color: #A6E22D;
+    }
+}
