@@ -1,5 +1,9 @@
 <div class="display-container">
-	{{#if model.sourceData.info}}
-		{{fa-icon 'play'}} {{model.sourceData.info}}
+	{{#if model.sourceData.calendar}}
+		{{fa-icon 'play'}} {{model.sourceData.calendar}}
+	{{else}}
+		{{#if model.sourceData.info}}
+			{{fa-icon 'play'}} {{model.sourceData.info}}
+		{{/if}}
 	{{/if}}
 </div>
