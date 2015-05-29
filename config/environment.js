@@ -35,10 +35,10 @@ module.exports = function(environment) {
     // ENV.APP.LOG_TRANSITIONS_INTERNAL = true;
     // ENV.APP.LOG_VIEW_LOOKUPS = true;
 
-    // ENV.BACKEND = {
-    //   HOST: 'localhost',
-    //   PORT: 49181
-    // }
+    ENV.BACKEND = {
+      HOST: 'localhost',
+      PORT: 49181
+    }
   }
 
   if (environment === 'test') {
