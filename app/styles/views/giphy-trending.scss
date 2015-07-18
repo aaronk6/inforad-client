@@ -1,0 +1,28 @@
+@import "compass/layout/stretching";
+
+.giphy-trending-view {
+	width: 960px;
+	height: 540px;
+	top: 540px;
+	left: 480px;
+
+	text-align: center;
+
+	.gif {
+		@include stretch(40px, 0, 20px, 0);
+		position: absolute;
+		text-align: center;
+
+		> img {
+			display: inline-block;
+			height: 100%;
+		}
+
+		> .status {
+			position: absolute;
+			bottom: 20px;
+			left: 0;
+			right: 0;
+		}
+	}
+}

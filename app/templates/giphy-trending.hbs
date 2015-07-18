@@ -1,0 +1,7 @@
+<div class="gif">
+{{#if model.currentItem.url}}
+	<img data-image-idx="{{model.currentIndex}}" src="{{model.currentItem.url}}" alt="">
+{{else}}
+	<div class="status">(no data from Giphy)</div>
+{{/if}}
+</div>

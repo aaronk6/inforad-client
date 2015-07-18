@@ -6,6 +6,7 @@ import TramScheduleModel from '../models/tram-schedule';
 import WeatherModel from '../models/weather';
 import RainForecastModel from '../models/rain-forecast';
 import CurrentlyPlayingModel from '../models/currently-playing';
+import GiphyTrendingModel from '../models/giphy-trending';
 
 import ENV from '../config/environment';
 
@@ -25,7 +26,8 @@ export default Ember.Route.extend({
     'bitcoin-price': BitcoinPriceModel,
     'weather': WeatherModel,
     'rain-forecast': RainForecastModel,
-    'currently-playing': CurrentlyPlayingModel
+    'currently-playing': CurrentlyPlayingModel,
+    'giphy-trending': GiphyTrendingModel
   },
 
   setConnectionStatus: function (status) {
