@@ -83,15 +83,25 @@ export default Ember.Route.extend({
     }
 
     function update (payload) {
-      var widgetName, modelClass;
+      var widgetName, modelClass, controller, data;
 
       if (payload && payload.widget && 'string' === typeof payload.widget.name) {
+
         widgetName = payload.widget.name.dasherize();
+
         if (modelClass = self.enabledWidgets[widgetName]) {
           Ember.debug('Updating %@'.fmt(widgetName));
-          self.controllerFor(widgetName).set('model', modelClass.create({
-            sourceData: payload.widget.data
-          }));
+
+          controller = self.controllerFor(widgetName);
+          data = payload.widget.data;
+
+          if (controller.get('model')) {
+            // update existing model
+            controller.get('model').set('sourceData', data);
+          } else {
+            // create new model
+            controller.set('model', modelClass.create({ sourceData: data }));
+          }
         }
       }
     }

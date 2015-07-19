@@ -1,7 +1,17 @@
-<div class="gif">
+<div class="animation" data-image-idx="{{model.currentIndex}}">
+
 {{#if model.currentItem.url}}
-	<img data-image-idx="{{model.currentIndex}}" src="{{model.currentItem.url}}" alt="">
+
+	{{#if model.isImage}}
+		<img src="{{model.currentItem.url}}" alt="">
+	{{else}}
+		{{#if model.isVideo}}
+			<video autoplay loop src="{{model.currentItem.url}}"></video>
+		{{/if}}
+	{{/if}}
+
 {{else}}
-	<div class="status">(no data from Giphy)</div>
+	<div class="status">(no data)</div>
 {{/if}}
+
 </div>

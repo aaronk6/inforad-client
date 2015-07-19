@@ -8,13 +8,14 @@
 
 	text-align: center;
 
-	.gif {
-		@include stretch(40px, 0, 20px, 0);
+	> .animation {
+		@include stretch(40px, 20px, 20px, 20px);
 		position: absolute;
 		text-align: center;
 
-		> img {
+		> img, video {
 			display: inline-block;
+			max-width: 100%;
 			height: 100%;
 		}
 
