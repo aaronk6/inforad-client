@@ -1,6 +1,6 @@
 import Ember from 'ember';
 
-export function currency(value) {
+export function number(value) {
   if (!value[0]) {
   	return '–';
   }
@@ -8,4 +8,4 @@ export function currency(value) {
   	(value[1] ? ' ' + value[1] : '');
 }
 
-export default Ember.HTMLBars.makeBoundHelper(currency);
+export default Ember.HTMLBars.makeBoundHelper(number);

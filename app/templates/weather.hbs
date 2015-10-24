@@ -1,6 +1,8 @@
-{{#with model.sourceData as data}}
-<div class="weather-icon icon-{{data.icon}}"></div>
-<div class="weather-desc">{{data.weather}}</div>
-<div class="temperature">{{data.temp_c}} °C</div>
-<div class="observation-time-location">(measured {{ago data.observation_time}} in {{data.observation_location}})</div>
-{{/with}}
+{{#unless model.sourceData.error}}
+  {{#with model.sourceData as data}}
+    <div class="weather-icon icon-{{data.icon}}"></div>
+    <div class="weather-desc">{{data.weather}}</div>
+    <div class="temperature">{{data.temp_c}} °C</div>
+    <div class="observation-time-location">(measured {{ago data.observation_time}} in {{data.observation_location}})</div>
+  {{/with}}
+{{/unless}}

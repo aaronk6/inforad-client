@@ -1,3 +1,8 @@
-<div class="symbol">{{fa-icon 'btc'}}</div>
-<div class="value">{{currency model.valueEur '€'}}</div>
-<div class="updated">(updated {{ago model.lastUpdate}})</div>
+<table>
+  <tr>
+    <th>1 {{fa-icon 'btc'}}</th>
+    <td>{{number model.valueEur '€'}}</td>
+  </tr>
+</table>
+
+{{!-- <div class="updated">(updated {{ago model.lastUpdate}})</div> --}}

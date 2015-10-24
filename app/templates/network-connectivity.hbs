@@ -1,0 +1,21 @@
+<table>
+  {{#each protocol in model.protocols }}
+    <tr>
+      <th>
+        {{protocol.name}}
+      </th>
+      <td>
+        {{#with protocol.data}}
+          {{#if error}}
+            {{fa-icon 'fa-exclamation-triangle' }}
+            {{#if timeout_error}}Timeout{{/if}}
+            {{#if test_error}}Test Failed{{/if}}
+            {{#if connectivity_error}}Unreachable{{/if}}
+          {{else}}
+            {{number latency 'ms'}}
+          {{/if}}
+        {{/with}}
+      </td>
+    </tr>
+  {{/each}}
+</table>

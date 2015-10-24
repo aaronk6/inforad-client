@@ -8,6 +8,7 @@
 @import "views/rain-forecast";
 @import "views/giphy-trending";
 @import "views/currently-playing";
+@import "views/network-connectivity";
 
 * {
 	box-sizing: border-box;
@@ -43,4 +44,31 @@ html, body {
     	right: 20px;
     	z-index: 1;
     }
+}
+
+.key-value-pairs {
+  width: 480px;
+  height: 540px;
+
+  font-size: 45px;
+  padding: 40px 20px;
+
+  > .ember-view {
+    width: 100%;
+
+    table {
+      width: 100%;
+      margin-bottom: 53px;
+
+      th, td {
+        padding: 4px;
+      }
+
+      td {
+        text-align: right;
+      }
+    }
+  }
+
+
 }
