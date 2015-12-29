@@ -8,6 +8,7 @@ import RainForecastModel from '../models/rain-forecast';
 import CurrentlyPlayingModel from '../models/currently-playing';
 import GiphyTrendingModel from '../models/giphy-trending';
 import NetworkConnectivityModel from '../models/network-connectivity';
+import PowerConsumptionModel from '../models/power-consumption';
 
 import ENV from '../config/environment';
 
@@ -29,7 +30,8 @@ export default Ember.Route.extend({
     'rain-forecast': RainForecastModel,
     'currently-playing': CurrentlyPlayingModel,
     'giphy-trending': GiphyTrendingModel,
-    'network-connectivity': NetworkConnectivityModel
+    'network-connectivity': NetworkConnectivityModel,
+    'power-consumption': PowerConsumptionModel,
   },
 
   setConnectionStatus: function (status) {
